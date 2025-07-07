@@ -8,14 +8,12 @@
 RAP takes *plain‑keyword “markdown”* such as
 
 ```text
-PROJECT(name)(SUPPLIER)            -- projection
-PERSONNEL UNION ALUMNI            -- union
+PROJECT(name)(SUPPLIER) PERSONNEL UNION ALUMNI
 ```
 ... and turns it into textbook symbols:
 
 ```text
-π₍name₎(SUPPLIER)
-PERSONNEL ∪ ALUMNI
+π₍name₎(SUPPLIER) PERSONNEL ∪ ALUMNI
 ```
 
 It currently supports the eight core operators plus `RENAME`:
