@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Relational Algebra Cheat‑Sheet</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif}
+code{background:#e9ecef;padding:0 .25rem;border-radius:.25rem}
+pre{background:#f8f9fa;border:1px solid #dee2e6;border-radius:.25rem;padding:1rem;white-space:pre-wrap}
+.output{margin-top:0.5rem;padding:1rem;border:1px solid #ced4da;border-radius:.25rem;white-space:pre-wrap;font-size:1.25rem;min-height:100px}
+/* hide all sections by default */
+.content-section{display:none}
+.content-section.active{display:block}
+</style>
+</head>
+<body>
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Relational Algebra</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="topNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link nav-link-section" data-section="converter" href="#">Converter</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-section" data-section="definitions" href="#">Definitions</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-section" data-section="examples" href="#">Examples</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  <!-- Live Converter -->
+  <section id="converter" class="content-section active">
+    <h3 class="h3">Algebra converter</h3>
+    <p class="text-muted">Type relational‑algebra expressions with plain keywords (see reference below); formatted symbols appear instantly.</p>
+    <textarea id="input" style="border: solid 3px silver;" class="form-control mb-2" rows="4" placeholder="Enter relational‑algebra markdown here... e.g. PROJECT(dept_id)(SELECT(salary > 70000 AND job_title = 'Manager')(EMPLOYEE))" >PROJECT(dept_id)(SELECT(salary > 70000 AND job_title = 'Manager')(EMPLOYEE))</textarea>
+
+    <div id="output" class="output"></div>
+    <button id="copyBtn" class="btn btn-outline-secondary btn-sm">Copy relational algebra</button>    
+    <!-- Reference Table (always handy while converting) -->
+    <hr>
+    <h3>Operator reference</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle mb-0">
+        <thead class="table-light">
+          <tr><th>Operator</th><th>Keyword</th><th>Symbol</th><th>Arity</th><th>Subscript?</th><th>Markdown Template</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Union</td><td><code>UNION</code></td><td class="text-center">∪</td><td>Binary</td><td>–</td><td><code>A UNION B</code></td></tr>
+          <tr><td>Intersection</td><td><code>INTERSECTION</code></td><td class="text-center">∩</td><td>Binary</td><td>–</td><td><code>A INTERSECTION B</code></td></tr>
+          <tr><td>Difference</td><td><code>DIFFERENCE</code> / <code>MINUS</code></td><td class="text-center">–</td><td>Binary</td><td>–</td><td><code>A DIFFERENCE B</code></td></tr>
+          <tr><td>Cartesian Product</td><td><code>PRODUCT</code></td><td class="text-center">×</td><td>Binary</td><td>–</td><td><code>A PRODUCT B</code></td></tr>
+          <tr><td>Natural Join</td><td><code>JOIN</code></td><td class="text-center">⋈</td><td>Binary</td><td>–</td><td><code>A JOIN B</code></td></tr>
+          <tr><td>Division</td><td><code>DIVIDE</code></td><td class="text-center">÷</td><td>Binary</td><td>–</td><td><code>A DIVIDE B</code></td></tr>
+          <tr><td>Selection</td><td><code>SELECT</code></td><td class="text-center">σ</td><td>Unary</td><td>Condition</td><td><code>SELECT(cond)(A)</code></td></tr>
+          <tr><td>Projection</td><td><code>PROJECT</code></td><td class="text-center">π</td><td>Unary</td><td>Attr list</td><td><code>PROJECT(attrs)(A)</code></td></tr>
+          <tr><td>Rename</td><td><code>RENAME</code></td><td class="text-center">ρ</td><td>Unary</td><td>Attr‑map</td><td><code>RENAME(old→new)(A)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Definitions Section -->
+  <section id="definitions" class="content-section">
+    <h2>Operator definitions</h2>
+    <ul>
+      <li><strong>Union ( ∪ )</strong> – Combines tuples in either operand relation.</li>
+      <li><strong>Intersection ( ∩ )</strong> – Tuples common to <em>both</em> operand relations.</li>
+      <li><strong>Difference / Minus ( – )</strong> – Tuples in left operand absent from right operand.</li>
+      <li><strong>Cartesian Product ( × )</strong> – Every tuple of left relation paired with every tuple of right relation.</li>
+      <li><strong>Natural Join ( ⋈ )</strong> – Joins on all attributes common to both relations.</li>
+      <li><strong>Division ( ÷ )</strong> – Tuples in left relation associated with <em>all</em> tuples of right relation.</li>
+      <li><strong>Selection ( σ )</strong> – Filters tuples by a Boolean <em>condition</em>.</li>
+      <li><strong>Projection ( π )</strong> – Keeps only specified <em>attribute list</em>.</li>
+      <li><strong>Rename ( ρ )</strong> – Renames relation or attributes.</li>
+    </ul>
+  </section>
+
+  <!-- Examples Section -->
+  <section id="examples" class="content-section">
+    <p class="text-muted">Here are some examples of basic set operations and more complex or nested queries using the tool:</p>
+    <h4 class="mt-4">Basic examples</h4>
+    <pre>
+    1. All persons ever affiliated with the university
+    
+    <b>Markdown</b>: PERSONNEL UNION ALUMNI                         
+    <b>Algebra</b>: PERSONNEL ∪ ALUMNI
+    
+    2. Courses that still have seats available
+    
+    <b>Markdown</b>: COURSES DIFFERENCE FULLY_BOOKED                
+    <b>Algebra</b>: COURSES – FULLY_BOOKED
+    
+    3. Names of all suppliers
+    
+    <b>Markdown</b>: PROJECT(name)(SUPPLIER)                       
+    <b>Algebra</b>: π<sub>name</sub>(SUPPLIER)
+    
+    4. Orders placed in 2025
+    
+    <b>Markdown</b>: SELECT(order_date ≥ '2025‑01‑01' AND order_date < '2026‑01‑01')(ORDERS)
+    <b>Algebra</b>: σ<sub>order_date ≥ 2025‑01‑01 ∧ order_date < 2026‑01‑01</sub>(ORDERS)
+    
+    5. Rename supplier_id to owner_id before a join
+    
+    <b>Markdown</b>: RENAME(supplier_id->owner_id)(SUPPLIER)        
+    <b>Algebra</b>: ρ<sub>supplier_id→owner_id</sub>(SUPPLIER)
+    
+    </pre>
+
+    <h4 class="mt-4">Intermediate examples</h4>
+    <pre>
+    6. Combine product data with current inventory counts
+    
+    <b>Markdown</b>: PRODUCT JOIN INVENTORY                         
+    <b>Algebra</b>: PRODUCT ⋈ INVENTORY
+    
+    7. Employees trained on forklift and available today
+    
+    <b>Markdown</b>: (TRAINED_FORKLIFT INTERSECTION AVAILABLE_TODAY)
+    <b>Algebra</b>: TRAINED_FORKLIFT ∩ AVAILABLE_TODAY
+    
+    8. Every possible pairing of student and elective for preference survey
+
+    <b>Markdown</b>: STUDENT PRODUCT ELECTIVE 
+    <b>Algebra</b>: STUDENT × ELECTIVE
+    
+    </pre>
+
+    <h4 class="mt-4">Complex and nested examples</h4>
+    <pre>
+    9. Titles of books under £20 supplied by a UK warehouse
+
+    <b>Markdown</b>: 
+    PROJECT(title)(
+      SELECT(price < 20 AND warehouse_region = 'UK')(
+        BOOK JOIN SUPPLIER JOIN WAREHOUSE
+      )
+    )
+
+    <b>Algebra</b>: π<sub>title</sub>( σ<sub>price < 20 ∧ warehouse_region = 'UK'</sub>( BOOK ⋈ SUPPLIER ⋈ WAREHOUSE ) )
+
+    10. Students who have completed every mandatory core module
+
+    <b>Markdown</b>: COMPLETED DIVIDE CORE_MODULE
+    <b>Algebra</b>: COMPLETED ÷ CORE_MODULE
+
+    11. Departments that employ a manager earning > £70k
+
+    <b>Markdown</b>: 
+    PROJECT(dept_id)(
+      SELECT(salary > 70000 AND job_title = 'Manager')(EMPLOYEE)
+    )
+
+    <b>Algebra</b>: 
+    π<sub>dept_id</sub>( σ<sub>salary > 70000 ∧ job_title = 'Manager'</sub>(EMPLOYEE) )
+    </pre>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Toggle section visibility
+const navLinks=document.querySelectorAll('.nav-link-section');
+navLinks.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();const t=l.dataset.section;document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active'));document.getElementById(t).classList.add('active');navLinks.forEach(n=>n.classList.remove('active'));l.classList.add('active');}));
+
+// Converter logic
+const SUB_OP=[{k:'SELECT',s:'σ'},{k:'PROJECT',s:'π'},{k:'RENAME',s:'ρ'}];
+const SIMPLE=[{re:/UNION/gi,r:'∪'},{re:/INTERSECTION/gi,r:'∩'},{re:/DIFFERENCE|MINUS/gi,r:'–'},{re:/PRODUCT/gi,r:'×'},{re:/JOIN/gi,r:'⋈'},{re:/DIVIDE/gi,r:'÷'},{re:/->/g,r:'→'}];
+function subReplace(src,k,s){const good=new RegExp(`${k}\\s*\\(([^(){}]+?)\\)(\\s*\\()`,`gi`);src=src.replace(good,(_,a,r)=>`${s}<sub>${a.trim()}</sub>${r}`);const loose=new RegExp(`${k}\\s*\\(([^(){}]+?)\\s+(?=\\()`,`gi`);return src.replace(loose,(_,a)=>`${s}<sub>${a.trim()}</sub>`);} 
+function convert(exp){let out=exp,prev;do{prev=out;SUB_OP.forEach(({k,s})=>{out=subReplace(out,k,s);});}while(out!==prev);SIMPLE.forEach(({re,r})=>out=out.replace(re,r));SUB_OP.forEach(({k,s})=>out=out.replace(new RegExp(k,'gi'),s));return out;}
+const inp=document.getElementById('input');const out=document.getElementById('output');function update(){out.innerHTML=convert(inp.value);}inp.addEventListener('input',update);update();
+// Copy button
+const copyBtn=document.getElementById('copyBtn');copyBtn.addEventListener('click',()=>{const txt=out.textContent||out.innerText;navigator.clipboard.writeText(txt).then(()=>{copyBtn.textContent='Copied!';setTimeout(()=>copyBtn.textContent='Copy output',1500);});});
+</script>
+</body>
+</html>
