@@ -1,8 +1,6 @@
 # RelationalAlgebraParser (RAP)
 
-> Prototype markdown‑to‑relational‑algebra converter – ideal for quickly dropping nicely formatted algebra into Word docs, PowerPoint slides, wikis, or anywhere that supports basic HTML.
-
----
+Prototype markdown‑to‑relational‑algebra converter – ideal for quickly dropping nicely formatted algebra into Word docs, PowerPoint slides, wikis, or anywhere that supports basic HTML.
 
 ## Introduction
 RAP takes *plain‑keyword “markdown”* such as
@@ -30,7 +28,7 @@ It currently supports the eight core operators plus `RENAME`:
 | `PROJECT(attrs)` | π<sub>attrs</sub> |
 | `RENAME(map)` | ρ<sub>map</sub> |
 
-> **Disclaimer** — RAP is a proof‑of‑concept. No warranty of correctness or fitness for purpose is provided.
+> **Disclaimer** — RAP is a proof‑of‑concept. No warranty of correctness or fitness for purpose is provided. Always check the resulting output before using it for tutorials or assessmments.
 
 ##  Running the app
 1. **Download** `relational_algebra_editor.html` (the single‑file app).
@@ -76,13 +74,6 @@ COMPLETED DIVIDE CORE_MODULE
 ```
 
 </details>
-
----
-
-## Roadmap
-* Custom operator aliases (e.g. `⨝`, `|X|`).
-* Export as LaTeX or SVG.
-* Dark‑mode toggle.
 
 Pull requests and feedback welcome – just remember this is an experiment.
 
